@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    div.cf_signup
+        div.container
+            h1.sg_heading Регистрация
+            p.sg_lead Здесь Вы сможете зарегистрироваться.
+            if typeof(message[0]) != 'undefined'
+            form.form-horizontal.sg_form(action='/signup', method='post')
+                div.form-group
+                    input#firstname.form-control(type="text", name='firstname', placeholder="Имя" autocomplete="off")
+                    span.icon.icon-warning Здесь ошибка
+                        //if typeof(message[0]) != 'undefined' && typeof(message[0].firstname) != 'undefined'
+                            span.icon.icon-warning=' ' + message[0].firstname.message
+                div.form-group
+                    input#lastname.form-control(type="text", name='lastname', placeholder="Фамилия" autocomplete="off")
+                    //if typeof(message[0]) != 'undefined' && typeof(message[0].lastname) != 'undefined'
+                        span.icon.icon-warning=' ' + message[0].lastname.message
+                div.form-group
+                    input#username.form-control(type="text", name='username', placeholder="Имя пользователя" autocomplete="off")
+                    //if typeof(message[0]) != 'undefined' && typeof(message[0].username) != 'undefined'
+                        span.icon.icon-warning=' ' + message[0].username.message
+                div.form-group
+                    input#email.form-control(type="text", name='email', placeholder="Email" autocomplete="off")
+                    //if typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined'
+                        span.icon.icon-warning=' ' + message[0].email.message
+                div.form-group
+                    input#password.form-control(type="password", name='password', placeholder="Пароль" autocomplete="off")
+                    //if typeof(message[0]) != 'undefined' && typeof(message[0].password) != 'undefined'
+                        span.icon.icon-warning=' ' + message[0].password.message
+                div.form-group
+                    button.btn.btn_white.signup(type="submit") Регистрация

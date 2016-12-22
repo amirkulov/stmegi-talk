@@ -1,0 +1,20 @@
+.contFluid {
+  .footer {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    .site {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.8);
+      display: block;
+      margin: 0;
+      span {
+        margin: 5px 0 0;
+        display: block;
+      }
+    }
+    //site
+  }
+  //footer
+}
+//contFluid

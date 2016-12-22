@@ -1,0 +1,8 @@
+{
+  "name": "Node.js Gettting Started",
+  "decscription": "A barebones Node js app using Express 4",
+  "repository": "https://github.com/amirkulov/stmegi-talk.git",
+  "logo": "https://small-sharp-tool.com/logo.svg",
+  "keywords": ["node","express","static"],
+  "image": "heroku/nodejs"
+}

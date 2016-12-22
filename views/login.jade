@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    div.cf_login
+        div.container
+            h1.sg_heading Войти
+            p.sg_lead Здесь Вы сможете войти в систему.
+            if typeof(message[0]) != 'undefined'
+            p.msg.icon.icon-warning Ошибка
+            form.form-horizontal.sg_form(action='/login' method='post')
+                div.form-group
+                    input#email.form-control(type="text" name='email' placeholder="Почта")
+                div.form-group
+                    input#password.form-control(type="password" name='password' placeholder="Пароль")
+                div.form-group
+                    button.btn.btn_white.login(type="submit") Войти

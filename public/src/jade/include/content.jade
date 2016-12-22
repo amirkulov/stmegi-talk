@@ -1,0 +1,84 @@
+main.cf_main
+    div.container
+        div.mn_dialog_panel
+            div.dp_chat Сообщения
+                span.count 9
+            div.icon.icon-close
+        //mn_dialog_panel
+
+        div.mn_dialog_content
+            div.bg_blur
+                svg(version="1.1" xmlns="http://www.w3.org/2000/svg")
+                    filter#blur
+                        feGaussianBlur(stdDeviation="10")
+                div.img_blur(style="background-image: url(images/bg.jpg);")
+            ul.dc_myChat
+                li
+                    //a.mc_avatar(href="/id173237981" target="_blank")
+                    //    img(src="https://pp.vk.me/c636227/v636227284/f20a/J4ZjAwY9OK0.jpg")
+                    div.mc_info
+                        a.io_link(href="/id173237981" title="" target="_blank") Avraam Amirkulov
+                        time.io_time 21.01.2016 13:32
+                        div.io_text
+                            p Добрый день! Вы размещаетесь премиум пакетом на нашем сайте. Пожалуйста, проверьте информацию.
+                li
+                    //a.mc_avatar(href="/id173237981" target="_blank")
+                    //    img(src="https://pp.vk.me/c636227/v636227284/f20a/J4ZjAwY9OK0.jpg")
+                    div.mc_info
+                        a.io_link(href="/id173237981" title="" target="_blank") Алберт Машияхов
+                        time.io_time 21.01.2016 13:32
+                        div.io_text
+                            p Здравствуйте, а в чем собственно вопрос?
+                li
+                    //a.mc_avatar(href="/id173237981" target="_blank")
+                    //    img(src="https://pp.vk.me/c636227/v636227284/f20a/J4ZjAwY9OK0.jpg")
+                    div.mc_info
+                        a.io_link(href="/id173237981" title="" target="_blank") Avraam Amirkulov
+                        time.io_time 21.01.2016 13:32
+                        div.io_text
+                            p Требуется графический дизайнер в рекламное агентство!!
+                            p Важно: знания иудаизма, креативность, нестандартность мышления, грамотность, внимательность, и конечно же знание графических программ!!!! ждем ваши портфолио info.menora@mail.ru
+                            p 27.06.13
+                            p оформи эту вакансию
+                            p обговори с кем надо потом выложи
+                li
+                    //a.mc_avatar(href="/id173237981" target="_blank")
+                    //    img(src="https://pp.vk.me/c636227/v636227284/f20a/J4ZjAwY9OK0.jpg")
+                    div.mc_info
+                        a.io_link(href="/id173237981" title="" target="_blank") Алберт Машияхов
+                        time.io_time 21.01.2016 13:32
+                        div.io_text
+                            p пускай регистрируются на сайте, а так какая польза от того что их реклама будет на сайте а их на сайте нету? халява в других местах.
+                            a(href="#") http://www.stmegi.com/Common_Public/Jobs/JobsMain.asp.
+                li
+                    //a.mc_avatar(href="/id173237981" target="_blank")
+                    //    img(src="https://pp.vk.me/c636227/v636227284/f20a/J4ZjAwY9OK0.jpg")
+                    div.mc_info
+                        a.io_link(href="/id173237981" title="" target="_blank") Avraam Amirkulov
+                        time.io_time 21.01.2016 13:32
+                        div.io_text
+                            p Добрый день! Вы размещаетесь премиум пакетом на нашем сайте. Пожалуйста, проверьте информацию.
+                li
+                    //a.mc_avatar(href="/id173237981" target="_blank")
+                    //    img(src="https://pp.vk.me/c636227/v636227284/f20a/J4ZjAwY9OK0.jpg")
+                    div.mc_info
+                        a.io_link(href="/id173237981" title="" target="_blank") Алберт Машияхов
+                        time.io_time 21.01.2016 13:32
+                        div.io_text
+                            p Здравствуйте, а в чем собственно вопрос?
+        //mn_dialog_content
+
+        div.mn_dialog_write
+            div.container
+                //div.dw_first_avatar
+                //    img(src="https://pp.vk.me/c636227/v636227284/f20a/J4ZjAwY9OK0.jpg")
+                form.dw_form(action="")
+                    textarea#txtArea.fm_area(placeholder="Введите Ваше сообщение..." onclick="clickArea();")
+                    input#userTo(type="hidden", value="")
+                    div.btn.icon.icon-paper-plane
+                    button.fm_button
+                //div.dw_last_avatar
+                //    img(src="https://pp.vk.me/c636227/v636227284/f20a/J4ZjAwY9OK0.jpg")
+        //mn_dialog_write
+
+
