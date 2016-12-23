@@ -19,19 +19,33 @@ module.exports = function (app, passport) {
         });
     });
 
-
+    app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/profile',
+        failureRedirect : '/login',
+        failureFlash : true
+    }));
+    
     // =====================================
     // = РЕГИСТРАЦИЯ / SIGN UP
     // =====================================
 
-    app.get('/signup', function(req, res) {
-
+    app.get('/signup', function(req, res) {  
+        console.log(req.flash('signupMessage'));
+        
         res.render('signup', {
           message: req.flash('signupMessage')
         });
     });
-
-
+    
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/profile',
+        failureRedirect : '/signup',
+        failureFlash : true
+    }));
+    
+    
+    
+    
     // =====================================
     // = ПРОФИЛЬ / PROFILE SECTION
     // =====================================
@@ -40,6 +54,7 @@ module.exports = function (app, passport) {
         res.render('profile', {
             user : req.user
         });
+        //console.log(req.user);
     });
 
 

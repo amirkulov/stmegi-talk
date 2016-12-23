@@ -6,7 +6,7 @@ block content
             h1.sg_heading Войти
             p.sg_lead Здесь Вы сможете войти в систему.
             if typeof(message[0]) != 'undefined'
-            p.msg.icon.icon-warning Ошибка
+                p.msg.icon.icon-warning=message[0]
             form.form-horizontal.sg_form(action='/login' method='post')
                 div.form-group
                     input#email.form-control(type="text" name='email' placeholder="Почта")
