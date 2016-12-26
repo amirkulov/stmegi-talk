@@ -2,5 +2,30 @@ extends layout
 
 block content
     div.cf_profile
-        h1 hello,#{user.local.email}
+        //h1 hello,#{user.local.email}
         a(href="/logout") Logout 
+        
+        //div id = #{user.facebook.id} 
+        //div token = #{user.facebook.token} 
+        //div email = #{user.facebook.email} 
+        //div name = #{user.facebook.name}
+            
+        //div id = #{user.vk.id} 
+        //div token = #{user.vk.token} 
+        //div username = #{user.vk.username} 
+        //div name = #{user.vk.name} 
+        
+        //div id = #{user.twitter.id} 
+        //div token = #{user.twitter.token}
+        //div username = #{user.twitter.username}
+        //div displayName = #{user.twitter.displayName}
+        
+        //div id = #{user.google.id}
+        //div token = #{user.google.token}
+        //div email = #{user.google.email}
+        //div name = #{user.google.name}
+        
+        div id = #{user.odnoklassniki.id}
+        div token = #{user.odnoklassniki.token}
+        div email = #{user.odnoklassniki.email}
+        div name = #{user.odnoklassniki.name}

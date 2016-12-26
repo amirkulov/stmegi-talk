@@ -5,6 +5,22 @@ block content
         div.container
             h1.sg_heading Войти
             p.sg_lead Здесь Вы сможете войти в систему.
+            
+            a(href="/auth/facebook").btn.btn-primary 
+                span.fa.fa-facebook Facebook
+                
+            a(href="/auth/vk").btn.btn-primary 
+                span.fa.fa-facebook Vk
+                
+            a(href="/auth/twitter").btn.btn-primary 
+                span.fa.fa-facebook Twitter 
+            
+            a(href="/auth/google").btn.btn-primary 
+                span.fa.fa-facebook Google
+                
+            a(href="/auth/odnoklassniki").btn.btn-primary 
+                span.fa.fa-facebook Odnoklassniki
+                
             if typeof(message[0]) != 'undefined'
                 p.msg.icon.icon-warning=message[0]
             form.form-horizontal.sg_form(action='/login' method='post')

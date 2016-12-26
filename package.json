@@ -39,7 +39,9 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
+    "passport-odnoklassniki": "^0.2.0",
     "passport-twitter": "^1.0.4",
+    "passport-vkontakte": "^0.3.2",
     "serve-favicon": "~2.3.0",
     "typescript": "^2.1.4"
   }
