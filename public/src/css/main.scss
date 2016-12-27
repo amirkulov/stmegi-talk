@@ -771,6 +771,33 @@
   
   .cf_profile {
     position: relative;
+    color: #dddddd;
+    z-index:2;
+    
+    .list {
+      margin: 0 0 20px;  
+    }
+    
+    h6 {
+      margin: 0 0 10px;  
+    }
+    
+    ul {
+      list-style-type: none;
+      text-decoration: none;
+      li {
+        list-style-type: none;
+        font-size: 13px;
+        color: #ebebeb;
+      }  
+    }
+    
+    .btn_white {
+      font-size: 13px;
+    }
+    a {
+      color: #dddddd;
+    }
   }
 }
 //contFluid

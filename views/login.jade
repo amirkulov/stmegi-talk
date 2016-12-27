@@ -6,20 +6,20 @@ block content
             h1.sg_heading Войти
             p.sg_lead Здесь Вы сможете войти в систему.
             
-            a(href="/auth/facebook").btn.btn-primary 
-                span.fa.fa-facebook Facebook
+            a(href="/auth/facebook").btn_white
+                span.icon.icon-facebook
                 
-            a(href="/auth/vk").btn.btn-primary 
-                span.fa.fa-facebook Vk
+            a(href="/auth/vk").btn_white
+                span.icon.icon-vk
                 
-            a(href="/auth/twitter").btn.btn-primary 
-                span.fa.fa-facebook Twitter 
+            a(href="/auth/twitter").btn_white
+                span.icon.icon-twitter
             
-            a(href="/auth/google").btn.btn-primary 
-                span.fa.fa-facebook Google
+            a(href="/auth/google").btn_white
+                span.icon.icon-gplus
                 
-            a(href="/auth/odnoklassniki").btn.btn-primary 
-                span.fa.fa-facebook Odnoklassniki
+            a(href="/auth/odnoklassniki").btn_white
+                span.icon.icon-ok
                 
             if typeof(message[0]) != 'undefined'
                 p.msg.icon.icon-warning=message[0]

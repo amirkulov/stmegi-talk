@@ -1,31 +1,84 @@
 extends layout
 
 block content
-    div.cf_profile
-        //h1 hello,#{user.local.email}
-        a(href="/logout") Logout 
-        
-        //div id = #{user.facebook.id} 
-        //div token = #{user.facebook.token} 
-        //div email = #{user.facebook.email} 
-        //div name = #{user.facebook.name}
+    div.row.cf_profile
+        div.container
+            h5 Мой профиль
+            div Email: #{user.local.email}
+            br/
+            h3 Локальный аккаунт
+            div Email: #{user.local.email}
+            div Пароль: #{user.local.password}
+            br/
+            h5 Привязанные аккаунты на других сервисах
             
-        //div id = #{user.vk.id} 
-        //div token = #{user.vk.token} 
-        //div username = #{user.vk.username} 
-        //div name = #{user.vk.name} 
-        
-        //div id = #{user.twitter.id} 
-        //div token = #{user.twitter.token}
-        //div username = #{user.twitter.username}
-        //div displayName = #{user.twitter.displayName}
-        
-        //div id = #{user.google.id}
-        //div token = #{user.google.token}
-        //div email = #{user.google.email}
-        //div name = #{user.google.name}
-        
-        div id = #{user.odnoklassniki.id}
-        div token = #{user.odnoklassniki.token}
-        div email = #{user.odnoklassniki.email}
-        div name = #{user.odnoklassniki.name}
+            div.list
+                h6 FACEBOOK
+                ul
+                    -if (user.facebook.token)
+                        li id = #{user.facebook.id}
+                        li token = #{user.facebook.token}
+                        li email = #{user.facebook.email}
+                        li name = #{user.facebook.name}
+                        li
+                            a(href="/unlink/facebook").btn_white Отключить
+                    -else
+                        li
+                            a(href="/connect/facebook").btn_white Подключить
+            
+            div.list
+                h6 VK
+                ul
+                    -if (user.vk.token)
+                        li id = #{user.vk.id} 
+                        li token = #{user.vk.token} 
+                        li username = #{user.vk.username} 
+                        li name = #{user.vk.name}
+                        li
+                            a(href="/unlink/vk").btn_white Отключить
+                    -else
+                        li
+                            a(href="/connect/vk").btn_white Подключить
+                    
+            div.list
+                h6 TWITTER
+                ul
+                    -if (user.twitter.token)
+                        li id = #{user.twitter.id}
+                        li token = #{user.twitter.token}
+                        li username = #{user.twitter.username}
+                        li displayName = #{user.twitter.displayName}
+                        li
+                            a(href="/unlink/twitter").btn_white Отключить
+                    -else
+                        li
+                            a(href="/connect/twitter").btn_white Подключить
+            div.list
+                h6 GOOGLE
+                ul
+                    -if (user.google.token)
+                        li id = #{user.google.id}
+                        li token = #{user.google.token}
+                        li email = #{user.google.email}
+                        li name = #{user.google.name}
+                        li
+                            a(href="/unlink/google").btn_white Отключить
+                    -else
+                        li
+                            a(href="/connect/google").btn_white Подключить
+                    
+            div.list
+                h6 ODNOKLASSNIKI
+                ul
+                    -if (user.odnoklassniki.token)
+                        li id = #{user.odnoklassniki.id}
+                        li token = #{user.odnoklassniki.token}
+                        li email = #{user.odnoklassniki.email}
+                        li name = #{user.odnoklassniki.name}
+                        li
+                            a(href="/unlink/odnoklassniki").btn_white Отключить
+                    -else
+                        li
+                            a(href="/connect/odnoklassniki").btn_white Подключить
+            
+            a(href="/logout") Logout 

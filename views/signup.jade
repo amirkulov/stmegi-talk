@@ -5,26 +5,10 @@ block content
         div.container
             h1.sg_heading Регистрация
             p.sg_lead Здесь Вы сможете зарегистрироваться.
-            form.form-horizontal.sg_form(action='/signup' method='post')                
+            form.form-horizontal.sg_form(action='/signup' method='post')
                 div.form-group
-                    input#firstname.form-control(type="text" name='firstname' placeholder="Имя" autocomplete="off" value="#{(typeof(fields[0]) != 'undefined' ? fields[0]['firstname'] : '')}")
-                    if typeof(message[0]) != 'undefined' && typeof(message[0]['local.firstname']) != 'undefined'
-                        span.icon.icon-warning=' ' + message[0]['local.firstname'].message
-                div.form-group
-                    input#lastname.form-control(type="text" name='lastname' placeholder="Фамилия" autocomplete="off" value="#{(typeof(fields[0]) != 'undefined' ? fields[0]['lastname'] : '')}")
-                    if typeof(message[0]) != 'undefined' && typeof(message[0]['local.lastname']) != 'undefined'
-                        span.icon.icon-warning=' ' + message[0]['local.lastname'].message
-                div.form-group
-                    input#username.form-control(type="text" name='username' placeholder="Имя пользователя" autocomplete="off" value="#{(typeof(fields[0]) != 'undefined' ? fields[0]['username'] : '')}")
-                    if typeof(message[0]) != 'undefined' && typeof(message[0]['local.username']) != 'undefined'
-                        span.icon.icon-warning=' ' + message[0]['local.username'].message
-                div.form-group
-                    input#email.form-control(type="text" name='email' placeholder="Email" autocomplete="off" value="#{(typeof(fields[0]) != 'undefined' ? fields[0]['email'] : '')}")
-                    if typeof(message[0]) != 'undefined' && typeof(message[0]['local.email']) != 'undefined'
-                        span.icon.icon-warning=' ' + message[0]['local.email'].message
+                    input#email.form-control(type="text" name='email' placeholder="Email" autocomplete="off")
                 div.form-group
                     input#password.form-control(type="password" name='password' placeholder="Пароль" autocomplete="off")
-                    if typeof(message[0]) != 'undefined' && typeof(message[0]['local.password']) != 'undefined'
-                        span.icon.icon-warning=' ' + message[0]['local.password'].message
                 div.form-group
                     button.btn.btn_white.signup(type="submit") Регистрация

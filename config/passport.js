@@ -25,54 +25,24 @@ module.exports = function (passport) {
     });
 
     // ========================================================
-    // = ЛОКАЛЬНАЯ РЕГИСТРАЦИЯ / LOCAL SIGNUP
-    // ========================================================
-
-    // passport.use('local-signup', new LocalStrategy({
-    //         usernameField: 'email',
-    //         passwordField: 'password',
-    //         passReqToCallback: true
-    //     },
-    //     function (req, email, password, done) {
-    //         process.nextTick(function () {
-    //             var newUser = new User();
-    //            
-    //             newUser.local.username = req.body.username;
-    //             newUser.local.firstname = req.body.firstname;
-    //             newUser.local.lastname = req.body.lastname;
-    //             newUser.local.email = email;
-    //             newUser.local.password = newUser.generateHash(password);
-    //
-    //             newUser.save(function(err) {
-    //                if(err)
-    //                     return done(null, false, err);
-    //
-    //                 return done(null, newUser);
-    //             });
-    //         });
-    //     }
-    // ));
-    
-    
-    // ========================================================
     // = ЛОКАЛЬНЫЙ ВХОД / LOCAL LOGIN
     // ========================================================
-    
+
     passport.use('local-login', new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password',
-        passReqToCallback: true
-    },
+            usernameField: 'email',
+            passwordField: 'password',
+            passReqToCallback: true
+        },
         function (req, email, password, done) {
             process.nextTick(function () {
                 User.findOne({'local.email' : email }, function (err, user) {
                     if (err)
                         return done(err);
-                    
+
                     if(!user) {
                         return done(null, false, req.flash('loginMessage', 'Такого пользователя не существует'));
-                    } 
-                    
+                    }
+
                     if(!user.validPassword(password)) {
                         return done(null, false, req.flash('loginMessage', 'Неверный пароль'));
                     }
@@ -81,7 +51,58 @@ module.exports = function (passport) {
             });
         }
     ));
+    
+    
+    // ========================================================
+    // = ЛОКАЛЬНАЯ РЕГИСТРАЦИЯ / LOCAL SIGNUP
+    // ========================================================
+    passport.use('local-signup', new LocalStrategy({
+            // by default, local strategy uses username and password, we will override with email
+            usernameField : 'email',
+            passwordField : 'password',
+            passReqToCallback : true // allows us to pass back the entire request to the callback
+        },
+        function(req, email, password, done) {
 
+            // asynchronous
+            // User.findOne wont fire unless data is sent back
+            process.nextTick(function() {
+
+                // find a user whose email is the same as the forms email
+                // we are checking to see if the user trying to login already exists
+                User.findOne({ 'local.email' :  email }, function(err, user) {
+                    // if there are any errors, return the error
+                    if (err)
+                        return done(err);
+
+                    // check to see if theres already a user with that email
+                    if (user) {
+                        return done(null, false, req.flash('signupMessage', 'Такой email уже существует.'));
+                    } else {
+
+                        // if there is no user with that email
+                        // create the user
+                        var newUser            = new User();
+
+                        // set the user's local credentials
+                        newUser.local.email    = email;
+                        newUser.local.password = newUser.generateHash(password);
+
+                        // save the user
+                        newUser.save(function(err) {
+                            if (err)
+                                throw err;
+                            return done(null, newUser);
+                        });
+                    }
+
+                });
+
+            });
+
+        }));
+    
+    
     // ========================================================
     // = FACEBOOK
     // ========================================================
@@ -90,34 +111,65 @@ module.exports = function (passport) {
         clientID        : configAuth.facebookAuth.clientID,
         clientSecret    : configAuth.facebookAuth.clientSecret,
         callbackURL     : configAuth.facebookAuth.callbackURL,
+        passReqToCallback : true,
         profileFields: ['id', 'displayName', 'name', 'photos','emails','link','gender']
     },
-    function(token, refreshToken, profile, done) {
+    function(req, token, refreshToken, profile, done) {
         process.nextTick(function() {
-            User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
-                if (err)
-                    return done(err);
-                
-                if (user) {
-                    return done(null, user);
-                } else {
-                    
-                    var newUser = new User();
-                    
-                    newUser.facebook.id    = profile.id;    
-                    newUser.facebook.token = token;
-                    newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
-                    newUser.facebook.email = profile.emails[0].value;
-                    
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-                        
-                        return done(null, newUser);
-                    });
-                }
+            if (!req.user) {
+                User.findOne({'facebook.id': profile.id}, function (err, user) {
+                    if (err)
+                        return done(err);
 
-            });
+                    if (user) {
+
+                        if (!user.facebook.token) {
+                            user.facebook.token = token;
+                            user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
+                            user.facebook.email = profile.emails[0].value;
+
+                            user.save(function(err) {
+                                if (err)
+                                    throw err;
+                                return done(null, user);
+                            });
+                        }
+                        
+                        return done(null, user);
+                    } else {
+
+                        var newUser = new User();
+
+                        newUser.facebook.id = profile.id;
+                        newUser.facebook.token = token;
+                        newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+                        newUser.facebook.email = profile.emails[0].value;
+
+                        newUser.save(function (err) {
+                            if (err)
+                                throw err;
+
+                            return done(null, newUser);
+                        });
+                    }
+
+                });
+            } else {
+                
+                var user = req.user;
+
+                user.facebook.id    = profile.id;
+                user.facebook.token = token;
+                user.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
+                user.facebook.email = profile.emails[0].value;
+
+                // save the user
+                user.save(function(err) {
+                    if (err)
+                        throw err;
+                    return done(null, user);
+                });
+            }
         });
 
     }));    
@@ -130,34 +182,65 @@ module.exports = function (passport) {
     passport.use(new VKontakteStrategy({
         clientID        : configAuth.vkAuth.clientID,
         clientSecret    : configAuth.vkAuth.clientSecret,
-        callbackURL     : configAuth.vkAuth.callbackURL
+        callbackURL     : configAuth.vkAuth.callbackURL,
+        passReqToCallback : true,
     },
-    function(token, refreshToken, profile, done) {
+    function(req, token, refreshToken, profile, done) {
         process.nextTick(function() {
-            User.findOne({ 'vk.id' : profile.id }, function(err, user) {
-                if (err)
-                    return done(err);
-                
-                if (user) {
-                    return done(null, user);
-                } else {
-                    
-                    var newUser = new User();
-                    
-                    newUser.vk.id    = profile.id;    
-                    newUser.vk.token = token;
-                    newUser.vk.name  = profile.name.givenName + ' ' + profile.name.familyName;
-                    newUser.vk.username = profile.username;
-                    
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-                        
-                        return done(null, newUser);
-                    });
-                }
+            if (!req.user) {
+                User.findOne({'vk.id': profile.id}, function (err, user) {
+                    if (err)
+                        return done(err);
 
-            });
+                    if (user) {
+
+                        if (!user.vk.token) {
+                            user.vk.token = token;
+                            user.vk.name = profile.name.givenName + ' ' + profile.name.familyName;
+                            user.vk.username = profile.username;
+
+                            user.save(function(err) {
+                                if (err)
+                                    throw err;
+                                return done(null, user);
+                            });
+                        }
+                        
+                        return done(null, user);
+                    } else {
+
+                        var newUser = new User();
+
+                        newUser.vk.id = profile.id;
+                        newUser.vk.token = token;
+                        newUser.vk.name = profile.name.givenName + ' ' + profile.name.familyName;
+                        newUser.vk.username = profile.username;
+
+                        newUser.save(function (err) {
+                            if (err)
+                                throw err;
+
+                            return done(null, newUser);
+                        });
+                    }
+
+                });
+            } else {
+
+                var user = req.user;
+
+                user.vk.id    = profile.id;
+                user.vk.token = token;
+                user.vk.name  = profile.name.givenName + ' ' + profile.name.familyName;
+                user.vk.username = profile.username;
+
+                // save the user
+                user.save(function(err) {
+                    if (err)
+                        throw err;
+                    return done(null, user);
+                });
+            }
         });
 
     }));
@@ -169,34 +252,65 @@ module.exports = function (passport) {
     passport.use(new TwitterStrategy({
         consumerKey     : configAuth.twitterAuth.consumerKey,
         consumerSecret  : configAuth.twitterAuth.consumerSecret,
-        callbackURL     : configAuth.twitterAuth.callbackURL
+        callbackURL     : configAuth.twitterAuth.callbackURL,
+        passReqToCallback : true
     },
-    function(token, tokenSecret, profile, done) {
+    function(req, token, tokenSecret, profile, done) {
         process.nextTick(function() {
-            User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
-                if (err)
-                    return done(err);
+            if (!req.user) {
+                User.findOne({'twitter.id': profile.id}, function (err, user) {
+                    if (err)
+                        return done(err);
 
-                if (user) {
+                    if (user) {
+                        
+                        if (!user.twitter.token) {
+                            user.twitter.token = token;
+                            user.twitter.name  = profile.name.givenName + ' ' + profile.name.familyName;
+                            user.twitter.email = profile.emails[0].value;
+
+                            user.save(function(err) {
+                                if (err)
+                                    throw err;
+                                return done(null, user);
+                            });
+                        }
+                        
+                        return done(null, user);
+                    } else {
+
+                        var newUser = new User();
+
+                        newUser.twitter.id = profile.id;
+                        newUser.twitter.token = token;
+                        newUser.twitter.username = profile.username;
+                        newUser.twitter.displayName = profile.displayName;
+
+                        newUser.save(function (err) {
+                            if (err)
+                                throw err;
+
+                            return done(null, newUser);
+                        });
+                    }
+
+                });
+            } else {
+
+                var user = req.user;
+
+                user.twitter.id    = profile.id;
+                user.twitter.token = token;
+                user.twitter.username  = profile.username;
+                user.twitter.displayName = profile.displayName;
+
+                // save the user
+                user.save(function(err) {
+                    if (err)
+                        throw err;
                     return done(null, user);
-                } else {
-
-                    var newUser = new User();
-
-                    newUser.twitter.id          = profile.id;
-                    newUser.twitter.token       = token;
-                    newUser.twitter.username    = profile.username;
-                    newUser.twitter.displayName = profile.displayName;
-
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-
-                        return done(null, newUser);
-                    });
-                }
-
-            });
+                });
+            }
         });
 
     }));
@@ -208,34 +322,65 @@ module.exports = function (passport) {
     passport.use(new GoogleStrategy({
         clientID        : configAuth.googleAuth.clientID,
         clientSecret    : configAuth.googleAuth.clientSecret,
-        callbackURL     : configAuth.googleAuth.callbackURL
+        callbackURL     : configAuth.googleAuth.callbackURL,
+        passReqToCallback : true
     },
-    function(token, refreshToken, profile, done) {
+    function(req, token, refreshToken, profile, done) {
         process.nextTick(function() {
-            User.findOne({ 'google.id' : profile.id }, function(err, user) {
-                if (err)
-                    return done(err);
+            if (!req.user) {
+                User.findOne({'google.id': profile.id}, function (err, user) {
+                    if (err)
+                        return done(err);
 
-                if (user) {
+                    if (user) {
+
+                        if (!user.google.token) {
+                            user.google.token = token;
+                            user.google.name  = profile.name.givenName + ' ' + profile.name.familyName;
+                            user.google.email = profile.emails[0].value;
+
+                            user.save(function(err) {
+                                if (err)
+                                    throw err;
+                                return done(null, user);
+                            });
+                        }
+                        
+                        return done(null, user);
+                    } else {
+
+                        var newUser = new User();
+
+                        newUser.google.id = profile.id;
+                        newUser.google.token = token;
+                        newUser.google.name = profile.displayName;
+                        newUser.google.email = profile.emails[0].value;
+
+                        newUser.save(function (err) {
+                            if (err)
+                                throw err;
+
+                            return done(null, newUser);
+                        });
+                    }
+
+                });
+            } else {
+
+                var user = req.user;
+
+                user.google.id    = profile.id;
+                user.google.token = token;
+                user.google.name  = profile.displayName;
+                user.google.email = profile.emails[0].value;
+
+                // save the user
+                user.save(function(err) {
+                    if (err)
+                        throw err;
                     return done(null, user);
-                } else {
-
-                    var newUser = new User();
-
-                    newUser.google.id    = profile.id;
-                    newUser.google.token = token;
-                    newUser.google.name  = profile.displayName;
-                    newUser.google.email = profile.emails[0].value;
-
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-
-                        return done(null, newUser);
-                    });
-                }
-
-            });
+                });
+            }
         });
     }));
     
@@ -247,36 +392,66 @@ module.exports = function (passport) {
         clientID        : configAuth.odnoklassnikiAuth.clientID,
         clientPublic    : configAuth.odnoklassnikiAuth.clientPublic,
         clientSecret    : configAuth.odnoklassnikiAuth.clientSecret,
-        callbackURL     : configAuth.odnoklassnikiAuth.callbackURL, 
+        callbackURL     : configAuth.odnoklassnikiAuth.callbackURL,
+        passReqToCallback : true,
         profileFields: ['id', 'displayName', 'name', 'photos','emails','link','gender']
     },
-    function(accessToken, refreshToken, profile, done) {
+    function(req, accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
-            console.log(profile);
-            User.findOne({ 'odnoklassniki.id' : profile.id }, function(err, user) {
-                if (err)
-                    return done(err);
+            if (!req.user) {
+                User.findOne({'odnoklassniki.id': profile.id}, function (err, user) {
+                    if (err)
+                        return done(err);
 
-                if (user) {
+                    if (user) {
+
+                        if (!user.odnoklassniki.token) {
+                            user.odnoklassniki.token = token;
+                            user.odnoklassniki.name  = profile.name.givenName + ' ' + profile.name.familyName;
+                            user.odnoklassniki.email = profile.emails[0].value;
+
+                            user.save(function(err) {
+                                if (err)
+                                    throw err;
+                                return done(null, user);
+                            });
+                        }
+                        
+                        return done(null, user);
+                    } else {
+
+                        var newUser = new User();
+
+                        newUser.odnoklassniki.id = profile.id;
+                        newUser.odnoklassniki.token = accessToken;
+                        newUser.odnoklassniki.name = profile.name.givenName + ' ' + profile.name.familyName;
+                        newUser.odnoklassniki.email = profile.emails[0];
+
+                        newUser.save(function (err) {
+                            if (err)
+                                throw err;
+
+                            return done(null, newUser);
+                        });
+                    }
+
+                });
+            } else {
+
+                var user = req.user;
+
+                user.odnoklassniki.id    = profile.id;
+                user.odnoklassniki.token = token;
+                user.odnoklassniki.name  = profile.name.givenName + ' ' + profile.name.familyName;
+                user.odnoklassniki.email = profile.emails[0];
+
+                // save the user
+                user.save(function(err) {
+                    if (err)
+                        throw err;
                     return done(null, user);
-                } else {
-
-                    var newUser = new User();
-
-                    newUser.odnoklassniki.id    = profile.id;
-                    newUser.odnoklassniki.token = accessToken;
-                    newUser.odnoklassniki.name  = profile.name.givenName + ' ' + profile.name.familyName;
-                    newUser.odnoklassniki.email = profile.emails[0];
-
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-
-                        return done(null, newUser);
-                    });
-                }
-
-            });
+                });
+            }
         });
     }));
 };
