@@ -1,13 +1,13 @@
 module.exports = {
     'facebookAuth' : {
-        'clientID'      : '1205135852873164', // your App ID
-        'clientSecret'  : '9449ed5df77ad69a4f0e76a6fc1a168f', // your App Secret
+        'clientID'      : '1205135852873164',
+        'clientSecret'  : '9449ed5df77ad69a4f0e76a6fc1a168f',
         'callbackURL'   : 'http://localhost:3000/auth/facebook/callback'
     },
     
     'vkAuth' : {
-        'clientID'      : '5795552', // your App ID
-        'clientSecret'  : 'wpg6vMTw7H3q9gIACSoy', // your App Secret
+        'clientID'      : '5795552',
+        'clientSecret'  : 'wpg6vMTw7H3q9gIACSoy',
         'callbackURL'   : 'http://localhost:3000/auth/vk/callback'
     },
 
@@ -29,5 +29,4 @@ module.exports = {
         'clientSecret'  : '51D21CB5E25FB4A0031BFE2F',
         'callbackURL'   : 'http://localhost:3000/auth/odnoklassniki/callback'
     }
-
 };

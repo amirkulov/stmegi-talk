@@ -5,9 +5,12 @@ block content
         div.container
             h1.sg_heading Регистрация
             p.sg_lead Здесь Вы сможете зарегистрироваться.
+            h3 1 Этап
             form.form-horizontal.sg_form(action='/signup' method='post')
                 div.form-group
-                    input#email.form-control(type="text" name='email' placeholder="Email" autocomplete="off")
+                    input#email.form-control(type="text" name='email' placeholder="Email" autocomplete="off" value="#{(typeof(message[0]) != 'undefined' ? message[0]['value'] : '')}")
+                    if typeof(message[0]) != 'undefined'
+                        span.icon.icon-warning=' ' + message[0].message
                 div.form-group
                     input#password.form-control(type="password" name='password' placeholder="Пароль" autocomplete="off")
                 div.form-group

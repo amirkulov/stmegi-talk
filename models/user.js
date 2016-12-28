@@ -1,12 +1,21 @@
 var mongoose = require('mongoose');
+var AutoIncrement = require('mongoose-sequence');
 var uniqueValidator = require('mongoose-unique-validator');
 var validate = require('mongoose-validate');
 var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
+    idPage:  { 
+        type: Number, 
+        default: 0 
+    },
     
     local: {
-        email       : String,
+        email       : {
+            type: String,
+            unique: true,
+            validate: [validate.email, 'Не корректная почта!']
+        },
         password    : String
     },
     
@@ -45,6 +54,8 @@ var userSchema = mongoose.Schema({
         name        : String
     }
 });
+
+userSchema.plugin(AutoIncrement, {inc_field: 'idPage'});
 
 userSchema.plugin(uniqueValidator, { message: 'Ошибка, {VALUE} уже существует.' });
 
