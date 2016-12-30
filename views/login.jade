@@ -6,7 +6,7 @@ block content
             h1.sg_heading Войти
             p.sg_lead Здесь Вы сможете войти в систему.
             
-            a(href="/auth/facebook" data-toggle='modal', data-target='#myModal').btn_white
+            a(href="/auth/facebook").btn_white
                 span.icon.icon-facebook
                 
             a(href="/auth/vk").btn_white
@@ -20,13 +20,17 @@ block content
                 
             a(href="/auth/odnoklassniki").btn_white
                 span.icon.icon-ok
-                
-            if typeof(message[0]) != 'undefined'
-                p.msg.icon.icon-warning=message[0]
+
+            if typeof(message[0]) != 'undefined' && typeof(message[0].general) != 'undefined'
+                span.icon.icon-warning=' ' + message[0].general.msg
             form.form-horizontal.sg_form(action='/login' method='post')
                 div.form-group
-                    input#email.form-control(type="text" name='email' placeholder="Почта")
+                    input#email.form-control(type="text" name='email' placeholder="Почта" value="#{(typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined' ? message[0].email.value : '')}")
+                    if typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined'
+                        span.icon.icon-warning=' ' + message[0].email.msg
                 div.form-group
                     input#password.form-control(type="password" name='password' placeholder="Пароль")
+                    if typeof(message[0]) != 'undefined' && typeof(message[0].password) != 'undefined'
+                        span.icon.icon-warning=' ' + message[0].password.msg
                 div.form-group
                     button.btn.btn_white.login(type="submit") Войти

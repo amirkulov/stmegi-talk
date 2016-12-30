@@ -8,10 +8,12 @@ block content
             h3 1 Этап
             form.form-horizontal.sg_form(action='/signup' method='post')
                 div.form-group
-                    input#email.form-control(type="text" name='email' placeholder="Email" autocomplete="off" value="#{(typeof(message[0]) != 'undefined' ? message[0]['value'] : '')}")
-                    if typeof(message[0]) != 'undefined'
-                        span.icon.icon-warning=' ' + message[0].message
+                    input#email.form-control(type="text" name='email' placeholder="Email" autocomplete="off" value="#{(typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined' ? message[0].email.value : '')}")
+                    if typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined'
+                        span.icon.icon-warning=' ' + message[0].email.msg
                 div.form-group
                     input#password.form-control(type="password" name='password' placeholder="Пароль" autocomplete="off")
+                    if typeof(message[0]) != 'undefined' && typeof(message[0].password) != 'undefined'
+                        span.icon.icon-warning=' ' + message[0].password.msg
                 div.form-group
                     button.btn.btn_white.signup(type="submit") Регистрация

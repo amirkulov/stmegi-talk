@@ -40,11 +40,24 @@ module.exports = function (passport) {
                         return done(err);
 
                     if(!user) {
-                        return done(null, false, req.flash('loginMessage', 'Такого пользователя не существует'));
+                        var generalError =  {
+                            'general': {
+                                'msg': 'Такой учетной записи не существует'
+                            }
+                        };
+                        
+                        return done(null, false, req.flash('fields', generalError));
                     }
 
                     if(!user.validPassword(password)) {
-                        return done(null, false, req.flash('loginMessage', 'Неверный пароль'));
+
+                        var passwordError =  {
+                            'password': {
+                                'msg': 'Неверный пароль'
+                            }
+                        };
+                        
+                        return done(null, false, req.flash('fields', passwordError));
                     }
                     return done(null, user);
                 });
@@ -57,24 +70,28 @@ module.exports = function (passport) {
     // = ЛОКАЛЬНАЯ РЕГИСТРАЦИЯ / LOCAL SIGNUP
     // ========================================================
     passport.use('local-signup', new LocalStrategy({
-            // by default, local strategy uses username and password, we will override with email
             usernameField : 'email',
             passwordField : 'password',
-            passReqToCallback : true // allows us to pass back the entire request to the callback
+            passReqToCallback : true
         },
         function(req, email, password, done) {
             process.nextTick(function() {                
                 var newUser = new User();
-
+                
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password);
-                
+
                 newUser.save(function(err) {
                     if (err){
-                        var emailError =  err.errors['local.email'];
-                        return done(null, false, req.flash('emailValid', emailError));
+                        var emailError =  {
+                            'email': {
+                                'msg':   err.errors['local.email']['message'],
+                                'value': err.errors['local.email']['value']
+                            }
+                        };
+                        return done(null, false, req.flash('fields', emailError));
                     }
-                    
+
                     return done(null, newUser);
                 });
             });
@@ -112,8 +129,10 @@ module.exports = function (passport) {
                                 return done(null, user);
                             });
                         }
-                        
-                        return done(null, user);
+                        else
+                        {
+                            return done(null, user);
+                        }
                     } else {
 
                         var newUser = new User();
@@ -183,8 +202,10 @@ module.exports = function (passport) {
                                 return done(null, user);
                             });
                         }
-                        
-                        return done(null, user);
+                        else
+                        {
+                            return done(null, user);
+                        }
                     } else {
 
                         var newUser = new User();
@@ -253,8 +274,10 @@ module.exports = function (passport) {
                                 return done(null, user);
                             });
                         }
-                        
-                        return done(null, user);
+                        else
+                        {
+                            return done(null, user);
+                        }
                     } else {
 
                         var newUser = new User();
@@ -323,8 +346,10 @@ module.exports = function (passport) {
                                 return done(null, user);
                             });
                         }
-                        
-                        return done(null, user);
+                        else
+                        {
+                            return done(null, user);
+                        }
                     } else {
 
                         var newUser = new User();
@@ -373,19 +398,18 @@ module.exports = function (passport) {
         callbackURL     : configAuth.odnoklassnikiAuth.callbackURL,
         passReqToCallback : true
     },
-    function(req, token, refreshToken, profile, done) {
+    function(req, accessToken, refreshToken, profile, done) {
         process.nextTick(function() {
             if (!req.user) {
                 User.findOne({'odnoklassniki.id': profile.id}, function (err, user) {
                     if (err)
                         return done(err);
-
+                    
                     if (user) {
-
                         if (!user.odnoklassniki.token) {
-                            user.odnoklassniki.token = token;
+                            user.odnoklassniki.token = accessToken;
                             user.odnoklassniki.name  = profile.name.givenName + ' ' + profile.name.familyName;
-                            user.odnoklassniki.email = profile.emails[0].value;
+                            user.odnoklassniki.email = profile.emails[0];
 
                             user.save(function(err) {
                                 if (err)
@@ -393,8 +417,10 @@ module.exports = function (passport) {
                                 return done(null, user);
                             });
                         }
-                        
-                        return done(null, user);
+                        else
+                        {
+                            return done(null, user);
+                        }                        
                     } else {
 
                         var newUser = new User();
@@ -418,7 +444,7 @@ module.exports = function (passport) {
                 var user = req.user;
 
                 user.odnoklassniki.id    = profile.id;
-                user.odnoklassniki.token = token;
+                user.odnoklassniki.token = accessToken;
                 user.odnoklassniki.name  = profile.name.givenName + ' ' + profile.name.familyName;
                 user.odnoklassniki.email = profile.emails[0];
 
