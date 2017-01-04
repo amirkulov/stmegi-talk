@@ -1,12 +1,8 @@
 extends layout
 
 block content
-  div.cf_welcome
+  div.row.cf_welcome
     div.container
-      h1.wc_heading Добро пожаловать!
-      p.wc_lead
-        | Представляем вам бета версию нового продукта. <br />
-        | Здесь Вы сможете быть частью общины горских евреев.
-      div.wc_btns_auth
-        a.btn.btn_white.btn_login(href="/login") Вход
-        a.btn.btn_white.btn_signup(href="/signup") Регистрация
+      div.rightBar
+        include login
+        include signup

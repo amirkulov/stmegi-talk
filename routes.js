@@ -7,8 +7,15 @@ module.exports = function (app, passport) {
     app.get('/', function (req, res) {
         res.render('index');
     });
-    
-    
+
+    // =========================================================
+    // = ГЛАВНАЯ СТРАНИЦА ID ПОЛЬЗОВАТЕЛЯ / HOME PAGE ID USERS
+    // =========================================================
+
+    app.get('/main', function (req, res) {
+        res.render('main');
+    });
+
     // =====================================
     // = НАСТРОЙКИ / SETTINGS
     // =====================================
@@ -16,7 +23,7 @@ module.exports = function (app, passport) {
     app.get('/settings/', isLoggedIn, function(req, res) {
 
         var idAct = req.param('act');
-        
+
         switch(idAct) {
             case 'accounts':
                 var template = 'settings_accounts';
@@ -24,7 +31,7 @@ module.exports = function (app, passport) {
             default:
                 var template = 'settings';
         }
-        
+
         res.render(template, {
             user : req.user
         });
@@ -38,22 +45,22 @@ module.exports = function (app, passport) {
         req.logout();
         res.redirect('/');
     });
-    
+
 
     // =====================================
     // = AUTHENTICATE
     // =====================================
-    
+
         // =====================================
         // = ЛОГИН / LOGIN
         // =====================================
-    
+
         app.get('/login', function (req, res) {
             res.render('login', {
                 message: req.flash('fields')
             });
         });
-        
+
         app.post('/login', function (req, res, next) {
             req.assert('email', 'Адрес невалиден').isEmail();
             req.assert('email', 'Поле обязательно для заполнения').notEmpty();
@@ -62,7 +69,7 @@ module.exports = function (app, passport) {
             // var errors = {};
             // errors[0]['email']['value'] = req.body.email;
             // errors[0]['password']['value'] = req.body.password;
-            
+
             req.getValidationResult().then(function(result) {
                 if (!result.isEmpty()) {
                     var errors = result.mapped();
@@ -87,7 +94,7 @@ module.exports = function (app, passport) {
                 }
             });
         });
-    
+
         // =====================================
         // = РЕГИСТРАЦИЯ / SIGN UP
         // =====================================
@@ -97,11 +104,11 @@ module.exports = function (app, passport) {
                 message: req.flash('fields')
             });
         });
-    
+
         app.post('/signup', function (req, res, next) {
             req.assert('email', 'Поле обязательно для заполнения').notEmpty();
             req.assert('password', 'Поле обязательно для заполнения').notEmpty();
-            
+
             req.getValidationResult().then(function(result) {
                 if (!result.isEmpty()) {
                     var errors = result.mapped();
@@ -131,26 +138,26 @@ module.exports = function (app, passport) {
         // = FACEBOOK
         // =====================================
 
-        app.get('/auth/facebook', 
-            passport.authenticate('facebook', { 
-                scope : 'email' 
+        app.get('/auth/facebook',
+            passport.authenticate('facebook', {
+                scope : 'email'
             }));
-    
+
         app.get('/auth/facebook/callback',
             passport.authenticate('facebook', { failureRedirect : '/login' }),
             function(req, res) {
                 res.redirect('/id' + req.user.idPage);
             });
-        
+
         // =====================================
         // = VK
         // =====================================
 
-        app.get('/auth/vk', 
+        app.get('/auth/vk',
             passport.authenticate('vkontakte', {
                 scope: ['emails']
             }));
-    
+
         app.get('/auth/vk/callback',
             passport.authenticate('vkontakte', { failureRedirect : '/login' }),
             function(req, res) {
@@ -160,41 +167,41 @@ module.exports = function (app, passport) {
         // =====================================
         // = TWITTER
         // =====================================
-    
-        app.get('/auth/twitter', 
+
+        app.get('/auth/twitter',
             passport.authenticate('twitter'));
-        
+
         app.get('/auth/twitter/callback',
             passport.authenticate('twitter', { failureRedirect : '/login' }),
             function(req, res) {
                 res.redirect('/id' + req.user.idPage);
             });
-    
+
         // =====================================
         // = GOOGLE PLUS
         // =====================================
-    
-        app.get('/auth/google', 
-            passport.authenticate('google', { 
-                scope : ['profile', 'email'] 
+
+        app.get('/auth/google',
+            passport.authenticate('google', {
+                scope : ['profile', 'email']
             }));
-    
+
         app.get('/auth/google/callback',
             passport.authenticate('google', { failureRedirect : '/login' }),
             function(req, res) {
                 res.redirect('/id' + req.user.idPage);
             });
-        
+
         // =====================================
         // = ODNOKLASSNIKI
         // =====================================
-    
-        app.get('/auth/odnoklassniki', 
+
+        app.get('/auth/odnoklassniki',
             passport.authenticate('odnoklassniki', {
                 layout: 'm',
                 scope: ['user_status', 'user_checkins']
             }));
-    
+
         app.get('/auth/odnoklassniki/callback',
             passport.authenticate('odnoklassniki', { failureRedirect : '/login' }),
             function(req, res) {
@@ -203,7 +210,7 @@ module.exports = function (app, passport) {
 
     // =====================================================================
     // = AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT)
-    // = АВТОРИЗАЦИЯ (УЖЕ АВТОРИЗОВАННЫХ / СВЯЗАННЫХ С ДРУГИМИ СОЦ. СЕТЯМИ) 
+    // = АВТОРИЗАЦИЯ (УЖЕ АВТОРИЗОВАННЫХ / СВЯЗАННЫХ С ДРУГИМИ СОЦ. СЕТЯМИ)
     // =====================================================================
 
         // =====================================
@@ -330,7 +337,7 @@ module.exports = function (app, passport) {
                 res.redirect('/settings?act=accounts');
             });
         });
-    
+
         // =====================================
         // = TWITTER
         // =====================================
@@ -364,7 +371,7 @@ module.exports = function (app, passport) {
             });
         });
 
-        
+
 
     // =====================================
     // = ПРОФИЛЬ / PROFILE

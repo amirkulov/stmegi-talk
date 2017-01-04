@@ -1,0 +1,26 @@
+.contFluid {
+  .cf_topNav {
+    height: 50px;
+    background-color: #35abe6;
+    .container {
+      max-width: 960px;
+      min-height: 100%;
+      margin: 0 auto;
+    }
+
+    .logo {
+      @include quattrocento;
+      font-size: 28px;
+      line-height: 40px;
+      color: rgba(255, 255, 255, 1);
+      text-shadow: 1px 1px 1px rgba(0,0,0,.2);
+      sup {
+        font-size: 14px;
+        color: rgba(255, 255, 255, .8);
+        padding: 0 5px;
+      }
+    }
+    //logo
+  }
+}
+//contFluid

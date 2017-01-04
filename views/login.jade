@@ -1,36 +1,42 @@
-extends layout
 
-block content
-    div.cf_login
-        div.container
-            h1.sg_heading Войти
-            p.sg_lead Здесь Вы сможете войти в систему.
-            
-            a(href="/auth/facebook").btn_white
-                span.icon.icon-facebook
-                
-            a(href="/auth/vk").btn_white
-                span.icon.icon-vk
-                
-            a(href="/auth/twitter").btn_white
-                span.icon.icon-twitter
-            
-            a(href="/auth/google").btn_white
-                span.icon.icon-gplus
-                
-            a(href="/auth/odnoklassniki").btn_white
-                span.icon.icon-ok
+mixin msg(arr, type, attr)
+  typeof(arr[0]) != 'undefined' && typeof(arr[0].type) != 'undefined' ? arr[0].type.attr : '')
 
-            if typeof(message[0]) != 'undefined' && typeof(message[0].general) != 'undefined'
-                span.icon.icon-warning=' ' + message[0].general.msg
-            form.form-horizontal.sg_form(action='/login' method='post')
-                div.form-group
-                    input#email.form-control(type="text" name='email' placeholder="Почта" value="#{(typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined' ? message[0].email.value : '')}")
-                    if typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined'
-                        span.icon.icon-warning=' ' + message[0].email.msg
-                div.form-group
-                    input#password.form-control(type="password" name='password' placeholder="Пароль")
-                    if typeof(message[0]) != 'undefined' && typeof(message[0].password) != 'undefined'
-                        span.icon.icon-warning=' ' + message[0].password.msg
-                div.form-group
-                    button.btn.btn_white.login(type="submit") Войти
+//script(type="text/javascript").
+  
+  
+div.rb_login.wh_bl
+  div.container
+      h1.lg_heading.bl_title Войти
+      //p.sg_lead Здесь Вы сможете войти в систему.
+      
+      div.auth_social
+        a.facebook(href="/auth/facebook" target="_blank")
+            span.icon.icon-facebook
+          
+        a.vk(href="/auth/vk" target="_blank")
+            span.icon.icon-vk
+            
+        a.twitter(href="/auth/twitter" target="_blank")
+            span.icon.icon-twitter
+        
+        a.gplus(href="/auth/google" target="_blank")
+            span.icon.icon-gplus
+            
+        a.ok(href="/auth/odnoklassniki" target="_blank")
+            span.icon.icon-ok
+      //if typeof(message[0]) != 'undefined' && typeof(message[0].general) != 'undefined'
+      //    span.icon.icon-warning=' ' + message[0].general.msg
+      form.form-horizontal.lg_form(action='/?act=login' method='post')
+          div.form-group
+              input#email.form-control(type="text" name='email' placeholder="Почта" value="")
+              //input#email.form-control(type="text" name='email' placeholder="Почта" value="#{(typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined' ? message[0].email.value : '')}")
+              //if typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined'
+              //    span.icon.icon-warning=' ' + message[0].email.msg
+          div.form-group
+              input#password.form-control(type="password" name='password' placeholder="Пароль")
+              //if typeof(message[0]) != 'undefined' && typeof(message[0].password) != 'undefined'
+              //    span.icon.icon-warning=' ' + message[0].password.msg
+          div.form-group
+              button.btn.login(type="submit") Войти
+              a.btn_forgot(href="/") Забыли пароль?

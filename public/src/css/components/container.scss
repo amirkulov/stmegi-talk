@@ -1,6 +1,6 @@
 html,body {
   position: relative;
-  @include openSans;
+  @include roboto;
   font-weight: normal;
   min-width: 320px;
   height: 100%;
@@ -31,10 +31,11 @@ html,body {
     margin: 0!important;
     .container {
       position: relative;
+      max-width: 980px;
       width: 100%;
       display: block;
       margin:  0 auto;
-      padding: 20px 10px
+      padding: 20px 10px;
     }
   }
 
