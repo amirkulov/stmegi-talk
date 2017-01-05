@@ -1,5 +1,7 @@
 //= components/swiper.js
 //= components/simple-lightbox.js
+//= components/jquery.validate.js
+//= components/validate.js
 
 $.fn.removeStyle = function(style) {
     var search = new RegExp(style + '[^;]+;?', 'g');
@@ -11,7 +13,7 @@ $.fn.removeStyle = function(style) {
     });
 };
 
-function showPopup(parent, children, close, speed, display) {
+function showPopup(parent, children, close, speed, display) { 
     if(display == '') {
         $(children).fadeIn(speed);
     } else {
@@ -160,5 +162,22 @@ $(document).ready(function () {
     //     }
     // });
 
-
+    
+    //var email = $('#email');
+    //var password = $('#password');
+    //var rv_email = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+    //
+    //$('.btn.login').on('click', function (event) {
+    //    if(email == '') {
+    //        event.preventDefault();
+    //        
+    //        $(this).append('<div class="icon-warning"> Поле обязательно для заполнения</div>')
+    //    } else if(val != '' && rv_email.test(val)) {
+    //        
+    //    }
+    //});    
+    //
+    //$('.btn.signup').on('click', function () {
+    //    
+    //});
 }); //END READY

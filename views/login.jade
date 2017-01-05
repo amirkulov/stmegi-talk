@@ -1,9 +1,5 @@
-
-mixin msg(arr, type, attr)
-  typeof(arr[0]) != 'undefined' && typeof(arr[0].type) != 'undefined' ? arr[0].type.attr : '')
-
-//script(type="text/javascript").
-  
+//mixin msg(arr, type, attr)
+//  +typeof(arr[0]) != 'undefined' && typeof(arr[0].type) != 'undefined' ? arr[0].type.attr : ''
   
 div.rb_login.wh_bl
   div.container
@@ -25,18 +21,17 @@ div.rb_login.wh_bl
             
         a.ok(href="/auth/odnoklassniki" target="_blank")
             span.icon.icon-ok
-      //if typeof(message[0]) != 'undefined' && typeof(message[0].general) != 'undefined'
-      //    span.icon.icon-warning=' ' + message[0].general.msg
-      form.form-horizontal.lg_form(action='/?act=login' method='post')
+      if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].general) != 'undefined'
+          span.icon.icon-warning=' ' + messageLogin[0].general.msg
+      form#loginForm.form-horizontal.lg_form(action='/login' method='post')
           div.form-group
-              input#email.form-control(type="text" name='email' placeholder="Почта" value="")
-              //input#email.form-control(type="text" name='email' placeholder="Почта" value="#{(typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined' ? message[0].email.value : '')}")
-              //if typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined'
-              //    span.icon.icon-warning=' ' + message[0].email.msg
+              input#email.form-control(type="text" name='email' placeholder="Почта" value="#{(typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].email) != 'undefined' ? messageLogin[0].email.value : '')}")
+              if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].email) != 'undefined'
+                  span.icon.icon-warning=' ' + messageLogin[0].email.msg
           div.form-group
               input#password.form-control(type="password" name='password' placeholder="Пароль")
-              //if typeof(message[0]) != 'undefined' && typeof(message[0].password) != 'undefined'
-              //    span.icon.icon-warning=' ' + message[0].password.msg
+              if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].password) != 'undefined'
+                  span.icon.icon-warning=' ' + messageLogin[0].password.msg
           div.form-group
               button.btn.login(type="submit") Войти
               a.btn_forgot(href="/") Забыли пароль?

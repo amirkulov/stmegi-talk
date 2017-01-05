@@ -2,16 +2,17 @@ div.rb_signup.wh_bl
   div.container
       h1.sg_heading.bl_title Регистрация
       p.sg_lead.bl_title Здесь Вы сможете зарегистрироваться.
-      -console.log(message[0]);
-      form.form-horizontal.sg_form(action='/?act=signup' method='post')
+      if typeof(messageSignup) != 'undefined'
+        -console.log(messageSignup[0]);
+      
+      form.form-horizontal.sg_form(action='/signup' method='post')
           div.form-group
-              input#email.form-control(type="text" name='email' placeholder="Email" autocomplete="off" value="")
-              //input#email.form-control(type="text" name='email' placeholder="Email" autocomplete="off" value="#{(typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined' ? message[0].email.value : '')}")
-              //if typeof(message[0]) != 'undefined' && typeof(message[0].email) != 'undefined'
-              //    span.icon.icon-warning=' ' + message[0].email.msg
+              input#email.form-control(type="text" name='email' placeholder="Email" autocomplete="off" value="#{(typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].email) != 'undefined' ? messageSignup[0].email.value : '')}")
+              if typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].email) != 'undefined'
+                  span.icon.icon-warning=' ' + messageSignup[0].email.msg
           div.form-group
               input#password.form-control(type="password" name='password' placeholder="Пароль" autocomplete="off")
-              //if typeof(message[0]) != 'undefined' && typeof(message[0].password) != 'undefined'
-              //    span.icon.icon-warning=' ' + message[0].password.msg
+              if typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].password) != 'undefined'
+                  span.icon.icon-warning=' ' + messageSignup[0].password.msg
           div.form-group
               button.btn.signup(type="submit") Регистрация

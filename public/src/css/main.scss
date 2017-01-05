@@ -225,8 +225,10 @@
       .lg_form,
       .sg_form {
         .form-group {
-          margin: 0 0 15px;
+          position: relative;
+          margin: 0 0 25px;
           input {
+            position: relative;
             width: 100%;
             font-size: 13px;
             font-weight: lighter;
@@ -255,6 +257,20 @@
           //btn_forgot
         }
         //form-group
+
+        .icon-warning,
+        .error {
+          position: absolute;
+          top: calc(100% + 5px);
+          font-size: 12px;
+          font-weight: lighter;
+          color: #da6868;
+          &:before {
+            font-size: 14px;
+            font-weight: 500;
+          }
+        }
+        //icon-warning
       }
       //lg_form
 

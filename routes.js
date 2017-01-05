@@ -5,7 +5,10 @@ module.exports = function (app, passport) {
     // =====================================
 
     app.get('/', function (req, res) {
-        res.render('index');
+        res.render('index', {
+            messageLogin: req.flash('fieldsLogin'),
+            messageSignup: req.flash('fieldsSignup')
+        });
     });
 
     // =========================================================
@@ -57,7 +60,7 @@ module.exports = function (app, passport) {
 
         app.get('/login', function (req, res) {
             res.render('login', {
-                message: req.flash('fields')
+                messageLogin: req.flash('fieldsLogin')
             });
         });
 
@@ -73,7 +76,7 @@ module.exports = function (app, passport) {
             req.getValidationResult().then(function(result) {
                 if (!result.isEmpty()) {
                     var errors = result.mapped();
-                    req.flash('fields', errors);
+                    req.flash('fieldsLogin', errors);
                     res.redirect('/login');
                 }
                 else
@@ -101,7 +104,7 @@ module.exports = function (app, passport) {
 
         app.get('/signup', function(req, res) {
             res.render('signup', {
-                message: req.flash('fields')
+                messageSignup: req.flash('fieldsSignup')
             });
         });
 
@@ -112,7 +115,7 @@ module.exports = function (app, passport) {
             req.getValidationResult().then(function(result) {
                 if (!result.isEmpty()) {
                     var errors = result.mapped();
-                    req.flash('fields', errors);
+                    req.flash('fieldsSignup', errors);
                     res.redirect('/signup');
                 }
                 else
