@@ -258,19 +258,36 @@
         }
         //form-group
 
-        .icon-warning,
         .error {
           position: absolute;
           top: calc(100% + 5px);
-          font-size: 12px;
+          font-size: 8px;
           font-weight: lighter;
           color: #da6868;
+          opacity: 0;
+          filter: alpha(0);
+          @include transition(all .3s ease);
           &:before {
             font-size: 14px;
             font-weight: 500;
+            margin-right: 5px;
           }
         }
-        //icon-warning
+        //error
+
+        .errors {
+          input {
+            border-color: #da6868;
+          }
+          .error {
+            font-size: 12px;
+            opacity: 1;
+            filter: alpha(1);
+          }
+          //icon-warning
+        }
+        //errors
+
       }
       //lg_form
 

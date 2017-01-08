@@ -26,10 +26,12 @@ div.rb_login.wh_bl
       form#loginForm.form-horizontal.lg_form(action='/login' method='post')
           div.form-group
               input#email.form-control(type="text" name='email' placeholder="Почта" value="#{(typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].email) != 'undefined' ? messageLogin[0].email.value : '')}")
+              span.error.icon.icon-warning
               if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].email) != 'undefined'
-                  span.icon.icon-warning=' ' + messageLogin[0].email.msg
+                  span.error.icon-warning=' ' + messageLogin[0].email.msg
           div.form-group
               input#password.form-control(type="password" name='password' placeholder="Пароль")
+              span.error.icon.icon-warning
               if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].password) != 'undefined'
                   span.icon.icon-warning=' ' + messageLogin[0].password.msg
           div.form-group

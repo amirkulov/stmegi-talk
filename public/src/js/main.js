@@ -1,7 +1,7 @@
 //= components/swiper.js
 //= components/simple-lightbox.js
 //= components/jquery.validate.js
-//= components/validate.js
+// components/validate.js
 
 $.fn.removeStyle = function(style) {
     var search = new RegExp(style + '[^;]+;?', 'g');
@@ -13,7 +13,7 @@ $.fn.removeStyle = function(style) {
     });
 };
 
-function showPopup(parent, children, close, speed, display) { 
+function showPopup(parent, children, close, speed, display) {
     if(display == '') {
         $(children).fadeIn(speed);
     } else {
@@ -162,22 +162,52 @@ $(document).ready(function () {
     //     }
     // });
 
-    
-    //var email = $('#email');
-    //var password = $('#password');
-    //var rv_email = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
-    //
-    //$('.btn.login').on('click', function (event) {
-    //    if(email == '') {
-    //        event.preventDefault();
-    //        
-    //        $(this).append('<div class="icon-warning"> Поле обязательно для заполнения</div>')
-    //    } else if(val != '' && rv_email.test(val)) {
-    //        
-    //    }
-    //});    
-    //
+
+
+
+    function addError(type, text) {
+      $(type).parent()
+             .addClass('errors')
+             .find('.error')
+             .text(text);
+    }
+
+    function removeError(type, text) {
+      $(type, this).parent()
+             .removeClass('errors')
+             .find('.error')
+             .text(text);
+    }
+
+    $('.btn.login, .btn.signup').on('click', function (event) {
+
+      var errors;
+      var email = $('#email').val();
+      var password = $('#password').val();
+      var regCheck = email.match(/[^@]+@[^@\.]+\.[^@]+/);
+
+      if (email == '') {
+        addError('#email', 'Поле обязательно для заполнения');
+      } else if(!regCheck) {
+        addError('#email', 'Некорректный E-Mail');
+      } else {
+        removeError('#email', '');
+
+      }
+
+      if(password == '') {
+        addError('#password', 'Поле обязательно для заполнения');
+      } else {
+        removeError('#password', '');
+      }
+
+      if(email == '' || !regCheck || password == '') {
+        event.preventDefault();
+      }
+
+    });
+
     //$('.btn.signup').on('click', function () {
-    //    
+    //
     //});
 }); //END READY
