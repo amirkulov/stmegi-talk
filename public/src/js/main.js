@@ -165,49 +165,67 @@ $(document).ready(function () {
 
 
 
-    function addError(type, text) {
-      $(type).parent()
-             .addClass('errors')
-             .find('.error')
-             .text(text);
+    function textError(type, text) {
+        $(type).parent().addClass('errors').find('.error').text(text);
     }
 
     function removeError(type, text) {
-      $(type, this).parent()
-             .removeClass('errors')
-             .find('.error')
-             .text(text);
-    }
+        $(type).parent().removeClass('errors').find('.error').text(text);
+    } 
+    
+    $('.btn.login').on('click', function (event) {
+        var email = $('.email_login');
+        var password = $('.password_login');
+        var emailVal = $('.email_login').val();
+        var passwordVal = $('.password_login').val();
+        var regCheck = emailVal.match(/[^@]+@[^@\.]+\.[^@]+/);
 
-    $('.btn.login, .btn.signup').on('click', function (event) {
 
-      var errors;
-      var email = $('#email').val();
-      var password = $('#password').val();
-      var regCheck = email.match(/[^@]+@[^@\.]+\.[^@]+/);
+        if (emailVal == '') {
+            textError(email, 'Поле обязательно для заполнения');
+        } else if (!regCheck) {
+            textError(email, 'Некорректный E-Mail');
+        } else {
+            removeError(email, '');
+        }
+        
+        if (passwordVal == '') {
+            textError(password, 'Поле обязательно для заполнения');
+        } else {
+            removeError(password, '');
+        }
 
-      if (email == '') {
-        addError('#email', 'Поле обязательно для заполнения');
-      } else if(!regCheck) {
-        addError('#email', 'Некорректный E-Mail');
-      } else {
-        removeError('#email', '');
-
-      }
-
-      if(password == '') {
-        addError('#password', 'Поле обязательно для заполнения');
-      } else {
-        removeError('#password', '');
-      }
-
-      if(email == '' || !regCheck || password == '') {
-        event.preventDefault();
-      }
-
+        if (emailVal == '' || !regCheck || passwordVal == '') {
+            event.preventDefault();
+        }
     });
+    
+    $('.btn.signup').on('click', function (event) {
+        var email = $('.email_signup');
+        var password = $('.password_signup');
+        var emailVal = $('.email_signup').val();
+        var passwordVal = $('.password_signup').val();
+        var regCheck = emailVal.match(/[^@]+@[^@\.]+\.[^@]+/);
 
-    //$('.btn.signup').on('click', function () {
-    //
-    //});
+
+        if (emailVal == '') {
+            textError(email, 'Поле обязательно для заполнения');
+        } else if (!regCheck) {
+            textError(email, 'Некорректный E-Mail');
+        } else {
+            removeError(email, '');
+        }
+        
+        if (passwordVal == '') {
+            textError(password, 'Поле обязательно для заполнения');
+        } else {
+            removeError(password, '');
+        }
+
+        if (emailVal == '' || !regCheck || passwordVal == '') {
+            event.preventDefault();
+        }
+    });
+    
+    
 }); //END READY

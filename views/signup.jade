@@ -7,12 +7,12 @@ div.rb_signup.wh_bl
       
       form.form-horizontal.sg_form(action='/signup' method='post')
           div.form-group
-              input#email.form-control(type="text" name='email' placeholder="Email" autocomplete="off" value="#{(typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].email) != 'undefined' ? messageSignup[0].email.value : '')}")
+              input#email.email_signup.form-control(type="text" name='email' placeholder="Email" autocomplete="off" value="#{(typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].email) != 'undefined' ? messageSignup[0].email.value : '')}")
               span.error.icon.icon-warning
               if typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].email) != 'undefined'
                   span.icon.icon-warning=' ' + messageSignup[0].email.msg
           div.form-group
-              input#password.form-control(type="password" name='password' placeholder="Пароль" autocomplete="off")
+              input#password.password_signup.form-control(type="password" name='password' placeholder="Пароль" autocomplete="off")
               span.error.icon.icon-warning
               if typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].password) != 'undefined'
                   span.icon.icon-warning=' ' + messageSignup[0].password.msg
