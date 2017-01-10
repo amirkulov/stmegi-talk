@@ -12,21 +12,35 @@ block content
             div.aboutUs Обо мне
         ul.inner_menu
           li
-            a(href="/") Новости
+            a(href="/")
+              span.icon.icon-news-feed
+              | Новости
           li
-            a(href="/") Сообщения
+            a(href="/")
+              span.icon.icon-chat
+              | Сообщения
             span.im_count 5
           li
-            a(href="/") Друзья
+            a(href="/")
+              span.icon.icon-friends
+              | Друзья
           li
-            a(href="/") Фотографии
+            a(href="/")
+              span.icon.icon-photo
+              | Фотографии
           li
-            a(href="/") Аудиозаписи
+            a(href="/")
+              span.icon.icon-music
+              | Аудиозаписи
           li
-            a(href="/") Закладки
+            a(href="/")
+              span.icon.icon-saved
+              | Сохраненное
             span.im_count 2
           li
-            a(href="/") Настройки
+            a(href="/")
+              span.icon.icon-settings
+              | Настройки
           
       div#pageMain
         div.profile_author
@@ -55,114 +69,169 @@ block content
                 div.label аудиозаписей
         //profile_author
         
-        div.page_photos.wh_bl
-          h2.bl_title Фото
-            =' '
-            span.count - 230
-          div.pp_square_photo
-            a(href="/" style="background-image: url(https://pp.vk.me/c604620/v604620284/1c539/4m9_ZJjLGsA.jpg)")
-              span.blind_label фотография
-            a(href="/" style="background-image: url(https://pp.vk.me/c630130/v630130284/24728/Or5C7vP-zRc.jpg)")
-              span.blind_label фотография
-            a(href="/" style="background-image: url(https://pp.vk.me/c629510/v629510284/2ba6a/vvApKxGUlXA.jpg)")
-              span.blind_label фотография
-            a(href="/" style="background-image: url()")
-              span.blind_label фотография
-            a(href="/" style="background-image: url()")
-              span.blind_label фотография
-        //page_photos
-            
-        div.page_friends.wh_bl
-          div.pf_people_cell
-            h2.bl_title Друзья
+        div.pageContent
+          div.page_photos.wh_bl
+            h2.bl_title Фото
               =' '
-              span.count - 17
-            div.pc_friends
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                div.name Mark
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                div.name Mark
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                div.name Mark
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                div.name Mark
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                div.name Mark
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                div.name Mark
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                div.name Mark
-          //pf_people_cell
-          
-          div.pf_people_cell.profile_friends_online
-            h2.bl_title Друзья онлайн
-              =' '
-              span.count - 4
-            div.pc_friends.online
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                  div.online
-                div.name Mark
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                  div.online
-                div.name Mark
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                  div.online
-                div.name Mark
-              a(href="/")
-                div.pic
-                  img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-                  div.online
-                div.name Mark
-          //pf_people_cell
-        //page_friends
-        
-        div.page_post.wh_bl
-          div.post_header
-            a.pic(href="/")
-              img.avatar.cricle_img(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-            a.name(href="/") Mark Zuckerberg
-            time.time 25 дек 2016 в 16:43
-          div.post_content
-            div.wall_text Привет, это моя новая запись в этой потрясающей социальной сети
-          div.post_button
-            
-        div.page_post.wh_bl
-          div.post_header
-            a.pic(href="/")
-              img.avatar.cricle_img(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
-            a.name(href="/") Mark Zuckerberg
-            time.time 25 дек 2016 в 16:43
-          div.post_content
-            div.wall_text Сижу работаю как всегда:))
-            a.post_image(href="/")
-              img.images(src="https://pp.vk.me/c636118/v636118284/41055/w5qmyCbVwnA.jpg" alt="")
-          div.post_button
+              span.count - 230
+            div.pp_square_photo
+              a(href="/" style="background-image: url(https://pp.vk.me/c604620/v604620284/1c539/4m9_ZJjLGsA.jpg)")
+                span.blind_label фотография
+              a(href="/" style="background-image: url(https://pp.vk.me/c630130/v630130284/24728/Or5C7vP-zRc.jpg)")
+                span.blind_label фотография
+              a(href="/" style="background-image: url(https://pp.vk.me/c629510/v629510284/2ba6a/vvApKxGUlXA.jpg)")
+                span.blind_label фотография
+              a(href="/" style="background-image: url()")
+                span.blind_label фотография
+              a(href="/" style="background-image: url()")
+                span.blind_label фотография
+          //page_photos
               
+          div.page_friends.wh_bl
+            div.pf_people_cell
+              h2.bl_title Друзья
+                =' '
+                span.count - 17
+              div.pc_friends
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                  div.name Mark
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                  div.name Mark
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                  div.name Mark
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                  div.name Mark
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                  div.name Mark
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                  div.name Mark
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                  div.name Mark
+            //pf_people_cell
+            
+            div.pf_people_cell.profile_friends_online
+              h2.bl_title Друзья онлайн
+                =' '
+                span.count - 4
+              div.pc_friends.online
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                    div.online
+                  div.name Mark
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                    div.online
+                  div.name Mark
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                    div.online
+                  div.name Mark
+                a(href="/")
+                  div.pic
+                    img.avatar(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+                    div.online
+                  div.name Mark
+            //pf_people_cell
+          //page_friends
+          
+          div.page_write_post.wh_bl
+            div.post_header
+              a.pic(href="/")
+                img.avatar.cricle_img(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+  
+            div.post_content
+              div.pc_panel
+                div.pp_tools.pt_photo
+                  span.icon.icon-photo
+                  | Фото
+  
+                div.pp_tools.pt_music
+                  span.icon.icon-music
+                  | Аудиозапись 
+              button.btn.btn_send_post Отправить
+          //page_write_post
+            
+          div.page_post.wh_bl
+            div.post_header
+              a.pic(href="/")
+                img.avatar.cricle_img(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+              a.name(href="/") Mark Zuckerberg
+              time.time 25 дек 2016 в 16:43
+              div.action_menu
+                span.icon.icon-action-menu
+            div.post_content
+              div.wall_text Привет, это моя новая запись в этой потрясающей социальной сети
+            div.post_button
+              div.pt_panel
+                div.pp_tools.pt_like
+                  span.icon.icon-like
+                  | Нравится
+                  span.pt_count_like 15347
+                  
+                div.pp_tools.pt_comment
+                  span.icon.icon-comment
+                  | Комментировать
+                  span.pt_count_comment 1752
+                  
+                div.pp_tools.pt_share
+                  span.icon.icon-share
+                  | Поделиться
+                  span.pt_count_share 358
+              
+          //page_post
+             
+          div.page_post.wh_bl
+            div.post_header
+              a.pic(href="/")
+                img.avatar.cricle_img(src="https://pp.vk.me/c629204/v629204587/31fc7/Goh5IW_S_cQ.jpg")
+              a.name(href="/") Mark Zuckerberg
+              time.time 25 дек 2016 в 16:43
+              div.action_menu
+                span.icon.icon-action-menu
+            div.post_content
+              div.wall_text Сижу работаю как всегда:))
+              a.post_image(href="/")
+                img.images(src="https://pp.vk.me/c636118/v636118284/41055/w5qmyCbVwnA.jpg" alt="")
+            div.post_button
+              div.pt_panel
+                div.pp_tools.pt_like.active
+                  span.icon.icon-like
+                  | Нравится
+                  span.pt_count_like 15347
+  
+                div.pp_tools.pt_comment
+                  span.icon.icon-comment
+                  | Комментировать
+                  span.pt_count_comment 1752
+  
+                div.pp_tools.pt_share
+                  span.icon.icon-share
+                  | Поделиться
+                  span.pt_count_share 358
+                
+    
+                
+              
+            
   
               
-            
-          
-
-            
-      div#sideAd
+          //page_post
+        div.pageAd
       

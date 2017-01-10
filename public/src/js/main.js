@@ -165,26 +165,25 @@ $(document).ready(function () {
 
 
 
-    function textError(type, text) {
-        $(type).parent().addClass('errors').find('.error').text(text);
+    function textError(input, text) {
+        $(input).parent().addClass('errors').find('.error').text(text);
     }
 
-    function removeError(type, text) {
-        $(type).parent().removeClass('errors').find('.error').text(text);
+    function removeError(input, text) {
+        $(input).parent().removeClass('errors').find('.error').text(text);
     } 
     
-    $('.btn.login').on('click', function (event) {
+    $('.btn.login').on('click', function(event) {
+        event.preventDefault();
+        
         var email = $('.email_login');
         var password = $('.password_login');
         var emailVal = $('.email_login').val();
         var passwordVal = $('.password_login').val();
-        var regCheck = emailVal.match(/[^@]+@[^@\.]+\.[^@]+/);
-
+        //var regCheck = emailVal.match(/[^@]+@[^@\.]+\.[^@]+/);
 
         if (emailVal == '') {
             textError(email, 'Поле обязательно для заполнения');
-        } else if (!regCheck) {
-            textError(email, 'Некорректный E-Mail');
         } else {
             removeError(email, '');
         }
@@ -195,8 +194,8 @@ $(document).ready(function () {
             removeError(password, '');
         }
 
-        if (emailVal == '' || !regCheck || passwordVal == '') {
-            event.preventDefault();
+        if (emailVal != '' && passwordVal != '') {
+            window.location.replace("/login?email=" + emailVal);
         }
     });
     

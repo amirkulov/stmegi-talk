@@ -69,6 +69,8 @@ module.exports = function (app, passport) {
             req.assert('email', 'Поле обязательно для заполнения').notEmpty();
             req.assert('password', 'Поле обязательно для заполнения').notEmpty();
 
+            //console.log(req.body.email);
+            
             // var errors = {};
             // errors[0]['email']['value'] = req.body.email;
             // errors[0]['password']['value'] = req.body.password;
@@ -222,6 +224,7 @@ module.exports = function (app, passport) {
         app.get('/connect/local', function(req, res) {
             res.render('connect-local', { message: req.flash('loginMessage') });
         });
+        
         app.post('/connect/local', passport.authenticate('local-signup', {
             successRedirect : '/settings?act=accounts',
             failureRedirect : '/connect/local',
@@ -263,8 +266,7 @@ module.exports = function (app, passport) {
         // =====================================
 
         app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
-
-
+        
         app.get('/connect/twitter/callback',
            passport.authorize('twitter', {
                successRedirect : '/settings?act=accounts',

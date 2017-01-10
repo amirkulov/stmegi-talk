@@ -1,39 +1,39 @@
+extends layout  
 //mixin msg(arr, type, attr)
 //  +typeof(arr[0]) != 'undefined' && typeof(arr[0].type) != 'undefined' ? arr[0].type.attr : ''
-  
-div.rb_login.wh_bl
-  div.container
-      h1.lg_heading.bl_title Войти
-      //p.sg_lead Здесь Вы сможете войти в систему.
-      
-      div.auth_social
-        a.facebook(href="/auth/facebook" target="_blank")
-            span.icon.icon-facebook
-          
-        a.vk(href="/auth/vk" target="_blank")
-            span.icon.icon-vk
+    
+block content  
+    div.rb_login.wh_bl
+      div.container
+          h1.lg_heading.bl_title Войти
+          //p.sg_lead Здесь Вы сможете войти в систему.
+          div.auth_social
+            a.facebook(href="/auth/facebook" target="_blank")
+                span.icon.icon-facebook
+              
+            a.vk(href="/auth/vk" target="_blank")
+                span.icon.icon-vk
+                
+            a.twitter(href="/auth/twitter" target="_blank")
+                span.icon.icon-twitter
             
-        a.twitter(href="/auth/twitter" target="_blank")
-            span.icon.icon-twitter
-        
-        a.gplus(href="/auth/google" target="_blank")
-            span.icon.icon-gplus
+            a.gplus(href="/auth/google" target="_blank")
+                span.icon.icon-gplus
+                
+            a.ok(href="/auth/odnoklassniki" target="_blank")
+                span.icon.icon-ok
             
-        a.ok(href="/auth/odnoklassniki" target="_blank")
-            span.icon.icon-ok
-      if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].general) != 'undefined'
-          span.icon.icon-warning=' ' + messageLogin[0].general.msg
-      form#loginForm.form-horizontal.lg_form(action='/login' method='post')
-          div.form-group
-              input#email.email_login.form-control(type="text" name='email' placeholder="Почта" value="#{(typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].email) != 'undefined' ? messageLogin[0].email.value : '')}")
-              span.error.icon.icon-warning
-              if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].email) != 'undefined'
-                  span.error.icon-warning=' ' + messageLogin[0].email.msg
-          div.form-group
-              input#password.password_login.form-control(type="password" name='password' placeholder="Пароль")
-              span.error.icon.icon-warning
-              if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].password) != 'undefined'
-                  span.icon.icon-warning=' ' + messageLogin[0].password.msg
-          div.form-group
-              button.btn.login(type="submit") Войти
-              a.btn_forgot(href="/") Забыли пароль?
+          if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].general) != 'undefined'
+              span.icon.icon-warning=' ' + messageLogin[0].general.msg
+          form#loginForm.lg_form(action='/login' method='post')
+              div.form-group
+                  input#email.email_login.form-control(type="text" name='email' placeholder="Почта" value="#{(typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].email) != 'undefined' ? messageLogin[0].email.value : '')}")
+                  if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].email) != 'undefined'
+                      span.error.icon-warning=' ' + messageLogin[0].email.msg
+              div.form-group
+                  input#password.password_login.form-control(type="password" name='password' placeholder="Пароль")
+                  if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].password) != 'undefined'
+                      span.icon.icon-warning=' ' + messageLogin[0].password.msg
+              div.form-group
+                  button.btn.login(type="submit") Войти
+                  a.btn_forgot(href="/") Забыли пароль?
