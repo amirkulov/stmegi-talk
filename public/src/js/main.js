@@ -173,41 +173,49 @@ $(document).ready(function () {
         $(input).parent().removeClass('errors').find('.error').text(text);
     } 
     
-    $('.btn.login').on('click', function(event) {
+    $('.rb_login .btn.login').on('click', function(event) {
         event.preventDefault();
-        
         var email = $('.email_login');
         var password = $('.password_login');
-        var emailVal = $('.email_login').val();
-        var passwordVal = $('.password_login').val();
-        //var regCheck = emailVal.match(/[^@]+@[^@\.]+\.[^@]+/);
 
-        if (emailVal == '') {
+        if (email.val() == '') {
             textError(email, 'Поле обязательно для заполнения');
         } else {
             removeError(email, '');
         }
         
-        if (passwordVal == '') {
+        if (password.val() == '') {
             textError(password, 'Поле обязательно для заполнения');
         } else {
             removeError(password, '');
         }
 
-        if (emailVal != '' && passwordVal != '') {
-            window.location.replace("/login?email=" + emailVal);
+        if (email.val() != '' && password.val() != '') {
+            window.location.replace("/login?email=" + email.val());
         }
     });
     
-    $('.btn.signup').on('click', function (event) {
+    $('.rb_signup .btn.signup').on('click', function (event) {
+
+        var name = $('.name_signup');
+        var surname = $('.surname_signup');
         var email = $('.email_signup');
         var password = $('.password_signup');
-        var emailVal = $('.email_signup').val();
-        var passwordVal = $('.password_signup').val();
-        var regCheck = emailVal.match(/[^@]+@[^@\.]+\.[^@]+/);
+        var regCheck = email.val().match(/[^@]+@[^@\.]+\.[^@]+/);
 
+        if (name.val() == '') {
+            textError(name, 'Поле обязательно для заполнения');
+        } else {
+            removeError(name, '');
+        }
 
-        if (emailVal == '') {
+        if (surname.val() == '') {
+            textError(surname, 'Поле обязательно для заполнения');
+        } else {
+            removeError(surname, '');
+        }
+        
+        if (email.val() == '') {
             textError(email, 'Поле обязательно для заполнения');
         } else if (!regCheck) {
             textError(email, 'Некорректный E-Mail');
@@ -215,16 +223,15 @@ $(document).ready(function () {
             removeError(email, '');
         }
         
-        if (passwordVal == '') {
+        if (password.val() == '') {
             textError(password, 'Поле обязательно для заполнения');
         } else {
             removeError(password, '');
         }
 
-        if (emailVal == '' || !regCheck || passwordVal == '') {
+        if (email.val() == '' || !regCheck || password.val() == '') {
             event.preventDefault();
         }
     });
-    
     
 }); //END READY

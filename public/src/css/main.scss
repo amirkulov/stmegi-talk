@@ -295,6 +295,108 @@
   }
   //cf_welcome
 
+  .cf_login,
+  .cf_signup {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    @include center(true);
+    .container {
+      padding: 20px;
+    }
+    //container
+
+    .auth_social {
+      text-align: center;
+      margin: 0 auto 20px;
+      a {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 50%;
+        background-color: #e5e9eb;
+        color: #9a9a9a;
+        display: inline-block;
+        margin: 0 5px;
+        @include transition(all .3s ease);
+
+
+        &.facebook { color: #496194; }
+        &.vk       { color: #6996c7; }
+        &.twitter  { color: #00aeef; }
+        &.gplus    { color: #ff4343; }
+        &.ok       { color: #ee8208; }
+
+        &:hover {
+          color: #ffffff;
+          &.facebook { background-color: #496194; }
+          &.vk       { background-color: #6996c7; }
+          &.twitter  { background-color: #00aeef; }
+          &.gplus    { background-color: #ff4343; }
+          &.ok       { background-color: #ee8208; }
+        }
+        //a:hover
+      }
+      //a
+    }
+    //auth_social
+
+    .lg_form,
+    .sg_form {
+      .form-group {
+        position: relative;
+        margin: 0 0 25px;
+        input {
+          position: relative;
+          width: 100%;
+          font-size: 13px;
+          font-weight: lighter;
+          height: 35px;
+          border-radius: 2px;
+          border: 1px solid #d3d9de;
+          outline: none;
+          color: #999;
+          padding: 3px 10px;
+          margin: 0;
+          display: block;
+        }
+
+        .btn_forgot {
+          font-size: 13px;
+          font-weight: 400;
+          color: #555;
+          line-height: 35px;
+          float: right;
+          display: inline-block;
+          &:hover {
+            color: $bg_color;
+          }
+          //&:hover
+        }
+        //btn_forgot
+      }
+      //form-group
+
+      .error {
+        position: absolute;
+        top: calc(100% + 5px);
+        font-size: 12px;
+        font-weight: lighter;
+        color: #da6868;
+        @include transition(all .3s ease);
+        &:before {
+          font-size: 14px;
+          font-weight: 500;
+          margin-right: 5px;
+        }
+      }
+      //error
+    }
+    //lg_form
+  }
+  //cf_login
+  
   .cf_main {
     position: relative;
     .container {

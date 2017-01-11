@@ -10,15 +10,7 @@ module.exports = function (app, passport) {
             messageSignup: req.flash('fieldsSignup')
         });
     });
-
-    // =========================================================
-    // = ГЛАВНАЯ СТРАНИЦА ID ПОЛЬЗОВАТЕЛЯ / HOME PAGE ID USERS
-    // =========================================================
-
-    app.get('/main', function (req, res) {
-        res.render('main');
-    });
-
+    
     // =====================================
     // = НАСТРОЙКИ / SETTINGS
     // =====================================
@@ -59,6 +51,7 @@ module.exports = function (app, passport) {
         // =====================================
 
         app.get('/login', function (req, res) {
+            console.log(req.flash('fieldsLogin'));
             res.render('login', {
                 messageLogin: req.flash('fieldsLogin')
             });
@@ -111,6 +104,8 @@ module.exports = function (app, passport) {
         });
 
         app.post('/signup', function (req, res, next) {
+            req.assert('firstName', 'Поле обязательно для заполнения').notEmpty();
+            req.assert('lastName', 'Поле обязательно для заполнения').notEmpty();
             req.assert('email', 'Поле обязательно для заполнения').notEmpty();
             req.assert('password', 'Поле обязательно для заполнения').notEmpty();
 
@@ -382,6 +377,10 @@ module.exports = function (app, passport) {
     // = ПРОФИЛЬ / PROFILE
     // =====================================
 
+    // =========================================================
+    // = ГЛАВНАЯ СТРАНИЦА ID ПОЛЬЗОВАТЕЛЯ / HOME PAGE ID USERS
+    // =========================================================
+    
     app.get('/:idPage', isLoggedIn, function (req, res) {
         res.render('profile', {
             user : req.user

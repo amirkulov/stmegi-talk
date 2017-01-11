@@ -1,23 +1,31 @@
 extends layout
 
 block content
-    div.rb_signup.wh_bl
+    div.cf_signup.wh_bl
       div.container
           h1.sg_heading.bl_title Регистрация
           p.sg_lead.bl_title Здесь Вы сможете зарегистрироваться.
-          if typeof(messageSignup) != 'undefined'
-            -console.log(messageSignup[0]);
           
           form.form-horizontal.sg_form(action='/signup' method='post')
               div.form-group
+                  input#firstName.name_signup.form-control(type="text" name='firstName' placeholder="Имя" autocomplete="off" value="#{(typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].firstName) != 'undefined' ? messageSignup[0].firstName.value : '')}")
+                  if typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].firstName) != 'undefined'
+                      span.error.icon.icon-warning=' ' + messageSignup[0].firstName.msg
+                      
+              div.form-group
+                  input#lastName.surname_signup.form-control(type="text" name='lastName' placeholder="Фамилия" autocomplete="off" value="#{(typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].lastName) != 'undefined' ? messageSignup[0].lastName.value : '')}")
+                  if typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].lastName) != 'undefined'
+                      span.error.icon.icon-warning=' ' + messageSignup[0].lastName.msg
+                      
+              div.form-group
                   input#email.email_signup.form-control(type="text" name='email' placeholder="Email" autocomplete="off" value="#{(typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].email) != 'undefined' ? messageSignup[0].email.value : '')}")
-                  span.error.icon.icon-warning
                   if typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].email) != 'undefined'
-                      span.icon.icon-warning=' ' + messageSignup[0].email.msg
+                      span.error.icon.icon-warning=' ' + messageSignup[0].email.msg
+                      
               div.form-group
                   input#password.password_signup.form-control(type="password" name='password' placeholder="Пароль" autocomplete="off")
-                  span.error.icon.icon-warning
                   if typeof(messageSignup[0]) != 'undefined' && typeof(messageSignup[0].password) != 'undefined'
-                      span.icon.icon-warning=' ' + messageSignup[0].password.msg
+                      span.error.icon.icon-warning=' ' + messageSignup[0].password.msg
+                      
               div.form-group
                   button.btn.signup(type="submit") Регистрация

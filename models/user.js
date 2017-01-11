@@ -11,6 +11,12 @@ var userSchema = mongoose.Schema({
     },
     
     local: {
+        firstName   : {
+            type: String
+        },
+        lastName    : {
+            type: String
+        },
         email       : {
             type: String,
             unique: true,

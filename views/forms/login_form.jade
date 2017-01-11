@@ -17,7 +17,7 @@ div.rb_login.wh_bl
                 span.icon.icon-gplus
 
             a.ok(href="/auth/odnoklassniki" target="_blank")
-                span.icon.icon-odnoklassniki
+                span.icon.icon-ok 
         if typeof(messageLogin[0]) != 'undefined' && typeof(messageLogin[0].general) != 'undefined'
             span.icon.icon-warning=' ' + messageLogin[0].general.msg
         form#loginForm.form-horizontal.lg_form(action='/login' method='post')
